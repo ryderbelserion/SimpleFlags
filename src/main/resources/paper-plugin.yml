@@ -1,0 +1,15 @@
+name: '${name}'
+main: '${group}.${name}'
+
+version: '${version}'
+api-version: '${apiVersion}'
+description: '${description}'
+
+loader: '${group}.LibraryLoader'
+
+dependencies:
+  server:
+    WorldGuard:
+      load: AFTER
+      required: true
+      join-classpath: true
