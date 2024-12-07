@@ -8,7 +8,7 @@ import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public abstract class FlagBuilder<T extends Flag> {
+public abstract class FlagBuilder<F extends Flag> {
 
     protected SimpleFlags plugin = JavaPlugin.getPlugin(SimpleFlags.class);
 
@@ -18,14 +18,14 @@ public abstract class FlagBuilder<T extends Flag> {
 
     public abstract String getName();
 
-    public abstract T getFlag();
+    public abstract F getFlag();
 
     public abstract boolean isEnabled();
 
     /**
      * @return A query of regions.
      */
-    protected RegionQuery getQuery() {
+    public RegionQuery getQuery() {
         return this.plugin.getRegions().createQuery();
     }
 
@@ -35,5 +35,4 @@ public abstract class FlagBuilder<T extends Flag> {
     protected FlagRegistry getRegistry() {
         return this.plugin.getWorldGuard().getFlagRegistry();
     }
-
 }
