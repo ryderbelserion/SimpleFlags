@@ -23,7 +23,16 @@ dependencies {
 
     compileOnly(libs.worldguard)
 
-    compileOnly(libs.paper)
+    compileOnly(libs.paper) {
+        exclude("com.google.code.gson", "gson")
+        exclude("com.google.guava", "guava")
+        exclude("it.unimi.dsi", "fastutil")
+    }
+
+    // worldguard or something along the way applies stupid version constraints on dependencies <3
+    compileOnly("com.google.guava", "guava", "32.1.3-jre")
+    compileOnly("com.google.code.gson", "gson", "2.10.1")
+    compileOnly("it.unimi.dsi", "fastutil", "8.5.12")
 }
 
 java {

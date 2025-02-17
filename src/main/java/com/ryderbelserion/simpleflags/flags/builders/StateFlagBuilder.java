@@ -15,25 +15,36 @@ public abstract class StateFlagBuilder extends FlagBuilder<StateFlag> {
     public abstract StateFlag getFlag();
 
     /**
+     * Tests a location
+     *
+     * @param player the {@link Player}
+     * @param flag the {@link StateFlag}
+     * @return true or false
+     */
+    public boolean testLocation(final Player player, final StateFlag flag) {
+        return getQuery().testState(BukkitAdapter.adapt(player.getLocation()), WorldGuardPlugin.inst().wrapPlayer(player), flag);
+    }
+
+    /**
      * Prevent any type of damage in any region.
      *
-     * @param player the player to prevent damage to.
-     * @param source the source of the damage.
-     * @param type the type of the damage to check.
-     * @param flag the flag.
+     * @param player the player to prevent damage to
+     * @param source the source of the damage
+     * @param type the type of the damage to check
+     * @param flag the flag
      * @return true or false
      */
     public boolean preventDamage(Player player, DamageSource source, DamageType type, StateFlag flag) {
-        return source.getDamageType() == type && getQuery().testState(BukkitAdapter.adapt(player.getLocation()), WorldGuardPlugin.inst().wrapPlayer(player), flag);
+        return source.getDamageType() == type && testLocation(player, flag);
     }
 
     /**
      * Prevent spawning based on a supplied spawn reason.
      *
-     * @param location the location to check.
-     * @param receivingReason the reason from the event.
-     * @param reason your reason.
-     * @param flag the flag.
+     * @param location the location to check
+     * @param receivingReason the reason from the event
+     * @param reason your reason
+     * @param flag the flag
      * @return true or false
      */
     public boolean preventSpawning(org.bukkit.Location location, CreatureSpawnEvent.SpawnReason receivingReason, CreatureSpawnEvent.SpawnReason reason, StateFlag flag) {
