@@ -6,8 +6,10 @@ import com.ryderbelserion.simpleflags.commands.types.CommandHelp;
 import com.ryderbelserion.simpleflags.commands.types.CommandReload;
 import com.ryderbelserion.simpleflags.config.ConfigManager;
 import com.ryderbelserion.simpleflags.flags.FlagManager;
+import com.ryderbelserion.simpleflags.flags.types.BlockFlag;
 import com.ryderbelserion.simpleflags.flags.types.DrownFlag;
 import com.ryderbelserion.simpleflags.flags.types.NaturalFlag;
+import com.ryderbelserion.simpleflags.listeners.BlockListener;
 import com.ryderbelserion.simpleflags.listeners.DrowningListener;
 import com.ryderbelserion.simpleflags.listeners.NaturalListener;
 import com.ryderbelserion.vital.paper.Vital;
@@ -34,7 +36,8 @@ public class SimpleFlags extends Vital {
 
         List.of(
                 new DrownFlag(),
-                new NaturalFlag()
+                new NaturalFlag(),
+                new BlockFlag()
         ).forEach(this.flagManager::addFlag);
     }
 
@@ -42,6 +45,7 @@ public class SimpleFlags extends Vital {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new NaturalListener(), this);
         getServer().getPluginManager().registerEvents(new DrowningListener(), this);
+        getServer().getPluginManager().registerEvents(new BlockListener(), this);
 
         // Register commands.
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
@@ -52,7 +56,7 @@ public class SimpleFlags extends Vital {
                     new CommandHelp()
             ).forEach(command -> root.then(command.registerPermission().literal()));
 
-            event.registrar().register(root.build(), "the base command for RedstonePvP");
+            event.registrar().register(root.build(), "the base command for SimpleFlags");
         });
     }
 

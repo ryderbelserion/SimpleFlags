@@ -6,14 +6,16 @@ shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 
 [versions]
 # Paper API
-paper = "1.21.1-R0.1-SNAPSHOT"
+paper = "1.21.4-R0.1-SNAPSHOT"
 velocity = "3.3.0-SNAPSHOT"
-minecraft = "1.21.1"
+minecraft = "1.21.4"
 brigadier = "1.3.10"
 
-# Vital API
-vital-common = "0.0.6"
-vital-paper = "1.0.6"
+# Fusion API
+fusion = "0.18.1"
+
+# Other API
+jalu = "1.4.3"
 
 # Gradle Plugins
 runPaper = "2.3.0"
@@ -33,6 +35,9 @@ paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
 
 worldguard = { group = "com.sk89q.worldguard", name = "worldguard-bukkit", version = "7.1.0-SNAPSHOT" }
 
-# Vital API
-vital-common = { module = "com.ryderbelserion.vital:common", version.ref = "vital-common" }
-vital-paper = { module = "com.ryderbelserion.vital:paper", version.ref = "vital-paper" }
+# Fusion API
+fusion-paper = { module = "com.ryderbelserion.fusion:fusion-paper", version.ref = "fusion" }
+fusion-core = { module = "com.ryderbelserion.fusion:fusion-core", version.ref = "fusion" }
+
+# Other API
+jalu = { module = "ch.jalu:configme", version.ref = "jalu" }

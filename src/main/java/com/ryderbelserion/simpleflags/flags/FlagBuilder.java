@@ -25,7 +25,7 @@ public abstract class FlagBuilder<T extends Flag> {
     /**
      * @return A query of regions.
      */
-    protected RegionQuery getQuery() {
+    public RegionQuery getQuery() {
         return this.plugin.getRegions().createQuery();
     }
 

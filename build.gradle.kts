@@ -13,17 +13,19 @@ rootProject.description = "A plugin that adds simple worldguard flags."
 repositories {
     maven("https://repo.papermc.io/repository/maven-public")
 
-    maven("https://repo.crazycrew.us/libraries")
+    maven("https://repo.crazycrew.us/releases")
 
     maven("https://maven.enginehub.org/repo")
 }
 
 dependencies {
-    compileOnly(libs.vital.paper)
+    compileOnly(libs.fusion.paper)
 
     compileOnly(libs.worldguard)
 
     compileOnly(libs.paper)
+
+    compileOnly(libs.jalu)
 }
 
 java {

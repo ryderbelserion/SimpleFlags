@@ -9,6 +9,7 @@ import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
+@SuppressWarnings("UnstableApiUsage")
 public abstract class StateFlagBuilder extends FlagBuilder<StateFlag> {
 
     @Override
