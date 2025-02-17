@@ -31,7 +31,7 @@ brigadier = { module = "com.mojang:brigadier", version.ref = "brigadier" }
 # Paper API
 paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
 
-worldguard = { group = "com.sk89q.worldguard", name = "worldguard-bukkit", version = "7.1.0-SNAPSHOT" }
+worldguard = { group = "com.sk89q.worldguard", name = "worldguard-bukkit", version = "7.0.13" }
 
 # Vital API
 vital-common = { module = "com.ryderbelserion.vital:common", version.ref = "vital-common" }
