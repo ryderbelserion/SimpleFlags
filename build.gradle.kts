@@ -7,7 +7,9 @@ plugins {
 }
 
 rootProject.group = "com.ryderbelserion.simpleflags"
-rootProject.version = "1.1.0"
+val buildNumber: String? = System.getenv("BUILD_NUMBER")
+
+rootProject.version = if (buildNumber != null) "${libs.versions.minecraft.get()}-$buildNumber" else "1.1.0"
 rootProject.description = "A plugin that adds simple worldguard flags."
 
 repositories {
