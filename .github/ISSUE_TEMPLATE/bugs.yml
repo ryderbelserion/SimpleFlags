@@ -30,14 +30,11 @@ body:
       description: Type /version plugin-name in-game
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: version
     attributes:
       label: Server Version
       description: What server version are you on?
-      options:
-        - "1.21.1"
-        - "1.21.2"
     validations:
       required: true
   - type: dropdown
