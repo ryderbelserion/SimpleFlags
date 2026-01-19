@@ -3,8 +3,9 @@ name: Release Build
 on:
   workflow_dispatch:
 
-  release:
-    types: [ published ]
+  push:
+    branches:
+      - dev
 
 jobs:
   build:
