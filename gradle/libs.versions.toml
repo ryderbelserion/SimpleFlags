@@ -1,38 +1,57 @@
-[plugins]
-# https://github.com/ryderbelserion/Feather
-feather = { id = "com.ryderbelserion.feather.core", version.ref = "feather" }
-# https://github.com/HangarMC/hangar-publish-plugin
-hangar = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangar" }
-# https://github.com/jpenilla/run-task
-runPaper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }
-# https://github.com/modrinth/minotaur
-minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
-# https://github.com/GradleUp/shadow
-shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
-
 [versions]
-# Paper API
-paper = "1.21.4-R0.1-SNAPSHOT"
-minecraft = "1.21.4"
+## Paper
+paperweight = "2.0.0-beta.19" # https://github.com/PaperMC/paperweight
+paper = "1.21.11-R0.1-SNAPSHOT" # https://github.com/PaperMC/Paper
+
+## Minecraft
+minecraft = "1.21.11" # https://minecraft.net
 
 # Vital API
 vital-common = "0.0.6"
 vital-paper = "1.0.6"
 
-# Gradle Plugins
-run-paper = "2.3.1" # https://github.com/jpenilla/run-task
-minotaur = "2.8.7" # https://github.com/modrinth/minotaur
+## Gradle Plugins
+fix-javadoc = "1.19" # https://github.com/mfnalex/gradle-fix-javadoc-plugin
+run-paper = "3.0.2" # https://github.com/jpenilla/run-task
+minotaur = "2.8.10" # https://github.com/modrinth/minotaur
 feather = "0.4.0" # https://github.com/ryderbelserion/Feather
-hangar = "0.1.3" # https://github.com/HangarMC/hangar-publish-plugin
-shadow = "9.0.0-beta15" # https://github.com/GradleUp/shadow
+hangar = "0.1.4" # https://github.com/HangarMC/hangar-publish-plugin
+shadow = "9.3.0" # https://github.com/GradleUp/shadow
 
 [libraries]
-# WorldGuard API
-worldguard = { group = "com.sk89q.worldguard", name = "worldguard-bukkit", version = "7.0.13" }
+# https://github.com/PaperMC/paperweight
+paperweight = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight" }
 
-# Paper API
-paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+# https://github.com/ryderbelserion/Feather
+feather = { module = "com.ryderbelserion.feather.core:com.ryderbelserion.feather.core.gradle.plugin", version.ref = "feather" }
+
+# https://github.com/HangarMC/hangar-publish-plugin
+hangar = { module = "io.papermc.hangar-publish-plugin:io.papermc.hangar-publish-plugin.gradle.plugin", version.ref = "hangar" }
+
+# https://github.com/modrinth/minotaur
+minotaur = { module = "com.modrinth.minotaur:com.modrinth.minotaur.gradle.plugin", version.ref = "minotaur" }
+
+# https://github.com/GradleUp/shadow
+shadow = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
+
+# https://github.com/jpenilla/run-task
+run-paper = { module = "xyz.jpenilla:run-task", version.ref = "run-paper" }
+
+# WorldGuard API
+worldguard = { group = "com.sk89q.worldguard", name = "worldguard-bukkit", version = "7.0.15" }
 
 # Vital API
-vital-common = { module = "com.ryderbelserion.vital:common", version.ref = "vital-common" }
 vital-paper = { module = "com.ryderbelserion.vital:paper", version.ref = "vital-paper" }
+
+[bundles]
+build = [
+    "minotaur",
+    "feather",
+    "hangar",
+    "shadow"
+]
+
+paper = [
+    "paperweight",
+    "run-paper"
+]

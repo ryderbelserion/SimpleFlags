@@ -7,8 +7,6 @@ import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
 
-import java.util.logging.Level;
-
 public class BlockCrafterFlag extends StateFlagBuilder {
 
     private StateFlag flag;
@@ -28,7 +26,7 @@ public class BlockCrafterFlag extends StateFlagBuilder {
                 return;
             }
 
-            this.plugin.getLogger().log(Level.WARNING, "An error has occurred registering " + getName() + " flag.", exception);
+            this.logger.warn("An error has occurred registering {} flag. Reason: {}", getName(), exception.getMessage());
         }
     }
 

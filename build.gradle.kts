@@ -1,23 +1,19 @@
-plugins {
-    alias(libs.plugins.runPaper)
-    alias(libs.plugins.minotaur)
-    alias(libs.plugins.feather)
-    alias(libs.plugins.shadow)
+import utils.convertList
+import utils.updateMarkdown
 
-    `java-library`
+plugins {
+    id("modrinth-plugin")
+    id("hangar-plugin")
+
+    `paper-plugin`
 }
 
 val git = feather.getGit()
 
-val commitHash: String? = git.getCurrentCommitHash().subSequence(0, 7).toString()
-val isSnapshot: Boolean = git.getCurrentBranch() == "dev"
-val content: String = if (isSnapshot) "[$commitHash](https://github.com/ryderbelserion/${rootProject.name}/commit/$commitHash) ${git.getCurrentCommit()}" else rootProject.file("changelog.md").readText(Charsets.UTF_8)
-val minecraft = libs.versions.minecraft.get()
-val versions = listOf(minecraft)
-
-rootProject.group = "com.ryderbelserion.simpleflags"
-rootProject.version = if (isSnapshot) "$minecraft-$commitHash" else "1.1.0"
-rootProject.description = "A plugin that adds simple worldguard flags."
+val releaseType = rootProject.ext.get("release_type").toString()
+val color = rootProject.property("${releaseType.lowercase()}_color").toString()
+val isRelease = releaseType.equals("release", true)
+val isAlpha = releaseType.equals("alpha", true)
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public")
@@ -28,15 +24,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.vital.paper)
+    implementation(libs.vital.paper)
 
     compileOnly(libs.worldguard)
-
-    compileOnly(libs.paper)
-}
-
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of("21"))
 }
 
 feather {
@@ -49,83 +39,81 @@ feather {
     discord {
         webhook {
             group(rootProject.name.lowercase())
-            task("dev-build")
-
-            if (System.getenv("BUILD_WEBHOOK") != null) {
-                post(System.getenv("BUILD_WEBHOOK"))
-            }
-
-            username(user.getName())
-
-            avatar(user.avatar)
-
-            embeds {
-                embed {
-                    color("#ffa347")
-
-                    title("A new dev version of ${rootProject.name} is ready!")
-
-                    fields {
-                        field(
-                            "Version ${rootProject.version}",
-                            listOf(
-                                "*Click below to download!*",
-                                "<:modrinth:1115307870473420800> [Modrinth](https://modrinth.com/plugin/${rootProject.name.lowercase()}/version/${rootProject.version})",
-                            ).convertList()
-                        )
-
-                        field(
-                            ":bug: Report Bugs",
-                            "https://github.com/ryderbelserion/${rootProject.name}/issues"
-                        )
-
-                        field(
-                            ":hammer: Changelog",
-                            content
-                        )
-                    }
-                }
-            }
-        }
-
-        webhook {
-            group(rootProject.name.lowercase())
             task("release-build")
 
             if (System.getenv("BUILD_WEBHOOK") != null) {
                 post(System.getenv("BUILD_WEBHOOK"))
             }
 
-            username(user.getName())
+            if (isRelease) {
+                username(user.getName())
 
-            avatar(user.avatar)
+                avatar(user.avatar)
+            } else {
+                username(rootProject.property("author_name").toString())
 
-            content("<@&929463441159254066>")
+                avatar(rootProject.property("author_avatar").toString())
+            }
 
             embeds {
                 embed {
-                    color("#1bd96a")
+                    color(color)
 
-                    title("A new release version of ${rootProject.name} is ready!")
+                    title("A new $releaseType version of ${rootProject.name} is ready!")
+
+                    //if (isRelease) {
+                    //    content("<@&${rootProject.property("discord_role_id").toString()}>")
+                    //}
 
                     fields {
                         field(
                             "Version ${rootProject.version}",
                             listOf(
                                 "*Click below to download!*",
-                                "<:modrinth:1115307870473420800> [Modrinth](https://modrinth.com/plugin/${rootProject.name.lowercase()}/version/${rootProject.version})",
+                                "<:modrinth:1115307870473420800> [Modrinth](https://modrinth.com/plugin/${rootProject.name.lowercase()}/version/${rootProject.version})"
                             ).convertList()
                         )
 
                         field(
                             ":bug: Report Bugs",
-                            "https://github.com/ryderbelserion/${rootProject.name}/issues"
+                            "https://github.com/${rootProject.property("repository_owner")}/${rootProject.name}/issues"
                         )
 
                         field(
                             ":hammer: Changelog",
-                            content
+                            rootProject.ext.get("mc_changelog").toString().updateMarkdown()
                         )
+                    }
+                }
+            }
+
+            webhook {
+                group(rootProject.name.lowercase())
+                task("failed-build")
+
+                if (System.getenv("BUILD_WEBHOOK") != null) {
+                    post(System.getenv("BUILD_WEBHOOK"))
+                }
+
+                username(rootProject.property("mascot_name").toString())
+
+                avatar(rootProject.property("mascot_avatar").toString())
+
+                embeds {
+                    embed {
+                        color(rootProject.property("failed_color").toString())
+
+                        title("Oh no! It failed!")
+
+                        thumbnail("https://raw.githubusercontent.com/ryderbelserion/Branding/refs/heads/main/booze.jpg")
+
+                        fields {
+                            field(
+                                "The build versioned ${rootProject.version} for project ${rootProject.name} failed.",
+                                "The developer is likely already aware, he is just getting drunk.",
+                                inline = true
+                            )
+                        }
                     }
                 }
             }
@@ -133,38 +121,7 @@ feather {
     }
 }
 
-fun List<String>.convertList(): String {
-    val builder = StringBuilder(size)
-
-    forEach {
-        builder.append(it).append("\n")
-    }
-
-    return builder.toString()
-}
-
 tasks {
-    compileJava {
-        options.encoding = Charsets.UTF_8.name()
-        options.release.set(21)
-    }
-
-    javadoc {
-        options.encoding = Charsets.UTF_8.name()
-    }
-
-    processResources {
-        filteringCharset = Charsets.UTF_8.name()
-    }
-
-    build {
-        dependsOn(shadowJar)
-    }
-
-    shadowJar {
-        archiveClassifier.set("")
-    }
-
     runServer {
         jvmArgs("-Dnet.kyori.ansi.colorLevel=truecolor")
         jvmArgs("-Dcom.mojang.eula.agree=true")
@@ -174,40 +131,20 @@ tasks {
         minecraftVersion(libs.versions.minecraft.get())
     }
 
-    modrinth {
-        token = System.getenv("MODRINTH_TOKEN")
-
-        projectId = rootProject.name
-
-        versionName = "${rootProject.version}"
-        versionNumber = "${rootProject.version}"
-        versionType = if (isSnapshot) "beta" else "release"
-
-        changelog = content
-
-        gameVersions.addAll(versions)
-
-        uploadFile = shadowJar.get().archiveFile.get().asFile
-
-        loaders.addAll(listOf("paper", "folia", "purpur"))
-
-        syncBodyFrom = rootProject.file("description.md").readText(Charsets.UTF_8)
-
-        autoAddDependsOn = false
-        detectLoaders = false
+    shadowJar {
+        listOf(
+            "com.ryderbelserion.vital"
+        ).forEach {
+            relocate(it, "libs.$it")
+        }
     }
 
-    processResources {
-        val props = mapOf(
-            "name" to rootProject.name,
-            "version" to rootProject.version,
-            "group" to rootProject.group,
-            "description" to rootProject.description,
-            "apiVersion" to libs.versions.minecraft.get()
-        )
-
-        filesMatching("paper-plugin.yml") {
-            expand(props)
+    configurations.all { //todo() FIX ME later, fucking forced dependencies, give me a fucking break
+        resolutionStrategy {
+            force("org.apache.logging.log4j:log4j-bom:2.24.1")
+            force("com.google.guava:guava:33.3.1-jre")
+            force("com.google.code.gson:gson:2.11.0")
+            force("it.unimi.dsi:fastutil:8.5.15")
         }
     }
 }

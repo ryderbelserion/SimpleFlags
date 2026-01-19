@@ -6,13 +6,16 @@ import com.ryderbelserion.simpleflags.config.ConfigManager;
 import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
+import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class FlagBuilder<T extends Flag> {
 
-    protected SimpleFlags plugin = JavaPlugin.getPlugin(SimpleFlags.class);
+    protected final SimpleFlags plugin = JavaPlugin.getPlugin(SimpleFlags.class);
 
-    protected SettingsManager config = ConfigManager.getConfig();
+    protected final ComponentLogger logger = this.plugin.getComponentLogger();
+
+    protected final SettingsManager config = ConfigManager.getConfig();
 
     public abstract void register();
 
