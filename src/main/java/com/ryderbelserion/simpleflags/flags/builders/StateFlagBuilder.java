@@ -35,7 +35,7 @@ public abstract class StateFlagBuilder extends FlagBuilder<StateFlag> {
      * @return true or false
      */
     public boolean preventDamage(Player player, DamageSource source, DamageType type, StateFlag flag) {
-        return source.getDamageType() == type && testLocation(player, flag);
+        return source.getDamageType() != type || testLocation(player, flag);
     }
 
     /**

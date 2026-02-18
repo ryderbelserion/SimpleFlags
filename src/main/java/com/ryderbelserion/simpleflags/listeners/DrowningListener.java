@@ -5,6 +5,7 @@ import com.ryderbelserion.simpleflags.flags.builders.StateFlagBuilder;
 import com.ryderbelserion.simpleflags.flags.FlagManager;
 import com.ryderbelserion.simpleflags.flags.enums.CustomFlags;
 import com.sk89q.worldguard.protection.flags.StateFlag;
+import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -37,7 +38,9 @@ public class DrowningListener implements Listener {
 
         if (stateFlag == null) return;
 
-        if (!flag.preventDamage(player, event.getDamageSource(), DamageType.DROWN, stateFlag)) {
+        final DamageSource source = event.getDamageSource();
+
+        if (!flag.preventDamage(player, source, DamageType.DROWN, stateFlag)) {
             event.setCancelled(true);
         }
     }
