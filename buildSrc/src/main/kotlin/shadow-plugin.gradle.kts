@@ -8,5 +8,16 @@ tasks {
         archiveClassifier.set("")
 
         exclude("META-INF/**")
+
+        listOf(
+            "com.ryderbelserion.fusion",
+            "org.bstats"
+        ).forEach {
+            relocate(it, "libs.$it")
+        }
+
+        minimize {
+            exclude(dependency("com.ryderbelserion.fusion:.*"))
+        }
     }
 }

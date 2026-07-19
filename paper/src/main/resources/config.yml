@@ -1,0 +1,28 @@
+# Support: https://discord.gg/ktxCyUd7Ny
+# Github: https://github.com/ryderbelserion
+#
+# Issues: https://github.com/ryderbelserion/SimpleFlags/issues
+# Features: https://github.com/ryderbelserion/SimpleFlags/issues
+#
+# Sounds: https://mudkipdev.github.io/minecraft-sound-explorer/
+root:
+  # The prefix that appears in front of messages.
+  prefix: "<gold>[<red>SimpleFlags<gold>]: "
+  # This option will tell the plugin to send all messages as action bars or messages in chat.
+  #
+  # send_message -> sends messages in chat.
+  # send_actionbar -> sends messages in actionbar.
+  message-state: "send_message"
+
+# Configure the flags of the plugin.
+flags:
+  # This flag prevent_drowning as you guessed it, it prevents drowning if enabled.
+  drowning-flag: false
+  # Flags related to the Crafter block.
+  crafter-flag:
+    # This flag prevent_crafter_interaction prevents interacting with Crafters.
+    interaction: false
+    # This flag prevent_crafter_block prevents placing Crafters.
+    place: false
+  # This flag prevent_natural_spawning prevents natural mob spawns in regions.
+  natural-spawning-flag: false

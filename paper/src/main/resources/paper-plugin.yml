@@ -1,0 +1,25 @@
+name: '${artifact}'
+main: '${group}.${artifact}'
+
+version: '${version}'
+api-version: '${minecraft}'
+description: '${description}'
+
+dependencies:
+  server:
+    # Placeholder plugins
+    PlaceholderAPI:
+      load: BEFORE
+      required: false
+      join-classpath: true
+
+    # Skull plugins
+    HeadDatabase:
+      load: BEFORE
+      required: false
+      join-classpath: true
+
+    WorldGuard:
+      load: AFTER
+      required: true
+      join-classpath: true

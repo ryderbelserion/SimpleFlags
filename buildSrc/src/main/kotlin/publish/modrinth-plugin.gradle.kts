@@ -1,11 +1,10 @@
 plugins {
     id("com.modrinth.minotaur")
-
     id("shared-plugin")
 }
 
 modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
+    token = "mrp_rQCjGHWfpst4KBrJEf022BvqwrVScPeIN3n7w1Vckq4dUnLeFCJvjMGd6xuP"
 
     projectId = "${rootProject.property("project_id")}"
 
@@ -27,8 +26,6 @@ modrinth {
     detectLoaders = false
 
     dependencies {
-        optional.project("DecentHolograms")
-        optional.project("FancyHolograms")
         optional.project("PlaceholderAPI")
     }
 }

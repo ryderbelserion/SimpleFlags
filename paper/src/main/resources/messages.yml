@@ -1,0 +1,10 @@
+# The start of the messages file!
+root:
+  # Sent when doing /simpleflags reload
+  reload-plugin: "{prefix}<red>You have reloaded the plugin."
+  # Sent when doing /simpleflags
+  help-menu:
+    - "<red>SimpleFlags Help Menu"
+    - ""
+    - "<red>/simpleflags <gray>- <gold>Shows this menu."
+    - "<red>/simpleflags reload <gray>- <gold>Reloads the plugin."

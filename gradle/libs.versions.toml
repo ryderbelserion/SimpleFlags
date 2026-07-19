@@ -1,24 +1,44 @@
 [versions]
-## Paper
-paperweight = "2.0.0-beta.19" # https://github.com/PaperMC/paperweight
-paper = "1.21.11-R0.1-SNAPSHOT" # https://github.com/PaperMC/Paper
+## Paper API
+paperweight = "2.0.0-beta.21" # https://github.com/PaperMC/paperweight
+adventure = "5.2.0" # https://github.com/KyoriPowered/adventure
+run-paper = "3.0.2" # https://github.com/jpenilla/run-task
 
-## Minecraft
-minecraft = "1.21.11" # https://minecraft.net
+paper = "26.1.2.build.+" # https://github.com/PaperMC/Paper
 
-# Vital API
-vital-common = "0.0.6"
-vital-paper = "1.0.6"
+## Minecraft API
+minecraft = "26.1.2" # https://minecraft.net
+
+## Other API
+fusion = "4.46.1" # https://github.com/ryderbelserion/Fusion
+
+## Metrics API
+bstats = "3.2.1" # https://bstats.org/docs
+
+## Fabric API
+fabric-loader = "0.19.2" # https://fabricmc.net/develop/
+fabric-loom = "1.16-SNAPSHOT" # https://fabricmc.net/develop/
+fabric-api = "0.150.0+26.1.2" # https://fabricmc.net/develop/
 
 ## Gradle Plugins
 fix-javadoc = "1.19" # https://github.com/mfnalex/gradle-fix-javadoc-plugin
-run-paper = "3.0.2" # https://github.com/jpenilla/run-task
-minotaur = "2.8.10" # https://github.com/modrinth/minotaur
-feather = "0.4.0" # https://github.com/ryderbelserion/Feather
+curseforge = "1.1.26" # https://github.com/Darkhax/CurseForgeGradle
+minotaur = "2.9.0" # https://github.com/modrinth/minotaur
+feather = "0.6.1" # https://github.com/ryderbelserion/Feather
 hangar = "0.1.4" # https://github.com/HangarMC/hangar-publish-plugin
-shadow = "9.3.0" # https://github.com/GradleUp/shadow
+shadow = "9.6.0" # https://github.com/GradleUp/shadow
+
+[plugins]
+# https://github.com/mfnalex/gradle-fix-javadoc-plugin
+fix-javadoc = { id = "com.jeff-media.fix-javadoc-plugin", version.ref = "fix-javadoc" }
+
+# https://fabricmc.net/develop/
+fabric-loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric-loom" }
 
 [libraries]
+# https://github.com/Darkhax/CurseForgeGradle
+curseforge = { group = "net.darkhax.curseforgegradle", name = "net.darkhax.curseforgegradle.gradle.plugin", version.ref = "curseforge" }
+
 # https://github.com/PaperMC/paperweight
 paperweight = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight" }
 
@@ -37,14 +57,39 @@ shadow = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "s
 # https://github.com/jpenilla/run-task
 run-paper = { module = "xyz.jpenilla:run-task", version.ref = "run-paper" }
 
-# WorldGuard API
-worldguard = { group = "com.sk89q.worldguard", name = "worldguard-bukkit", version = "7.0.15" }
+# https://github.com/ryderbelserion/Fusion
+fusion-paper = { module = "com.ryderbelserion.fusion:fusion-paper", version.ref = "fusion" }
+fusion-kyori = { module = "com.ryderbelserion.fusion:fusion-kyori", version.ref = "fusion" }
+fusion-core = { module = "com.ryderbelserion.fusion:fusion-kyori", version.ref = "fusion" }
 
-# Vital API
-vital-paper = { module = "com.ryderbelserion.vital:paper", version.ref = "vital-paper" }
+# https://fabricmc.net/develop/
+fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.ref = "fabric-api" }
+fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabric-loader" }
+
+# WorldGuard API
+worldguard = { group = "com.sk89q.worldguard", name = "worldguard-bukkit", version = "7.0.17" }
+
+# Mojang API
+minecraft = { group = "com.mojang", name = "minecraft", version.ref = "minecraft" }
+
+# https://github.com/KyoriPowered/adventure
+kyori-logger = { module = "net.kyori:adventure-text-logger-slf4j", version.ref = "adventure" }
+kyori-text = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure" }
+kyori-api = { module = "net.kyori:adventure-api", version.ref = "adventure" }
+
+# https://bstats.org
+bstats-hytale = { module = "org.bstats:bstats-hytale", version.ref = "bstats" }
+bstats-paper = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
 
 [bundles]
+kyori = [
+    "kyori-logger",
+    "kyori-text",
+    "kyori-api"
+]
+
 build = [
+    "curseforge",
     "minotaur",
     "feather",
     "hangar",
@@ -53,5 +98,6 @@ build = [
 
 paper = [
     "paperweight",
+
     "run-paper"
 ]

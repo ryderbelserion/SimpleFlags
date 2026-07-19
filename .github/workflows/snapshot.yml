@@ -5,50 +5,18 @@ on:
 
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    uses: ryderbelserion/ryderbelserion/.github/workflows/build.yml@main
 
-    if: "!contains(github.event.commits[0].message, '[ci-skip]') || !contains(github.event.commits[0].message, 'chore:')"
+    with:
+      platforms: modrinth
+      status: "beta"
+      branch: main
 
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 21
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Build
-        run: ./gradlew build --stacktrace
-
-      - name: Publish to Modrinth
-        run: ./gradlew modrinth --stacktrace
-        env:
-          COMMIT_MESSAGE: ${{ join(github.event.commits.*.message, '<br>') }}
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-
-      #- name: Publish to Hangar
-      #  run: ./gradlew publishAllPublicationsToHangar --stacktrace
-      #  env:
-      #    COMMIT_MESSAGE: ${{ join(github.event.commits.*.message, '<br>') }}
-      #    HANGAR_KEY: ${{ secrets.HANGAR_TOKEN }}
-
-      #- name: Notify Discord
-      #  if: success()
-      #  run: ./gradlew release-build --stacktrace
-      #  env:
-      #    BUILD_WEBHOOK: ${{ secrets.webhook }}
-
-      #- name: Build Failure
-      #  if: failure()
-      #  run: ./gradlew failed-build --stacktrace
-      #  env:
-      #    BUILD_WEBHOOK: ${{ secrets.webhook }}
+    secrets:
+      webhook: ${{ secrets.SF_WEBHOOK }}
+      modrinth_token: ${{ secrets.MODRINTH_TOKEN }}
+      hangar_token: ${{ secrets.HANGAR_KEY }}
