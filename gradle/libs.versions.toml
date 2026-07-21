@@ -10,7 +10,7 @@ paper = "26.1.2.build.+" # https://github.com/PaperMC/Paper
 minecraft = "26.1.2" # https://minecraft.net
 
 ## Other API
-fusion = "4.46.1" # https://github.com/ryderbelserion/Fusion
+fusion = "4.47.0" # https://github.com/ryderbelserion/Fusion
 
 ## Metrics API
 bstats = "3.2.1" # https://bstats.org/docs

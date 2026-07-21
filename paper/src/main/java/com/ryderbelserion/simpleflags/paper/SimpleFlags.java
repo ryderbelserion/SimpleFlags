@@ -53,6 +53,8 @@ public class SimpleFlags extends JavaPlugin {
 
         this.adapter = new PaperSenderAdapter();
 
+        this.configManager.loadMessages();
+
         this.worldGuard = WorldGuard.getInstance();
 
         this.flagManager = new FlagManager();
@@ -69,6 +71,10 @@ public class SimpleFlags extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        if (this.fusion != null) {
+            this.fusion.post();
+        }
+
         final PluginManager pluginManager = getServer().getPluginManager();
 
         List.of(

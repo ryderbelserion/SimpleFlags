@@ -43,7 +43,7 @@ public class RootKeys implements IPropertyHolder {
     }
 
     @Comment("The prefix used in commands")
-    public static final StringProperty command_prefix = newProperty(" <gradient:#e91e63:blue>CrazyCrates</gradient> | ", "root", "command_prefix");
+    public static final StringProperty command_prefix = newProperty(" <gradient:#e91e63:gold>SimpleFlags</gradient> | ", "root", "prefix");
 
     @Comment({
             "This option will tell the plugin to send all messages as action bars or messages in chat.",

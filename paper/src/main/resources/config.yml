@@ -7,7 +7,7 @@
 # Sounds: https://mudkipdev.github.io/minecraft-sound-explorer/
 root:
   # The prefix that appears in front of messages.
-  prefix: "<gold>[<red>SimpleFlags<gold>]: "
+  prefix: " <gradient:#e91e63:gold>SimpleFlags</gradient> | "
   # This option will tell the plugin to send all messages as action bars or messages in chat.
   #
   # send_message -> sends messages in chat.

@@ -45,8 +45,6 @@ public final class ConfigManager {
         for (final FileKeys key : FileKeys.values()) {
             key.load();
         }
-
-        loadMessages();
     }
 
     public void loadMessages() {
