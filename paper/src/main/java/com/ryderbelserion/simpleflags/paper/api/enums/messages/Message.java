@@ -1,6 +1,6 @@
 package com.ryderbelserion.simpleflags.paper.api.enums.messages;
 
-import com.ryderbelserion.fusion.core.api.FusionKey;
+import com.ryderbelserion.fusion.api.objects.FusionKey;
 import com.ryderbelserion.fusion.core.api.config.properties.PropertyManager;
 import com.ryderbelserion.fusion.core.api.config.properties.objects.enums.PropertyType;
 import com.ryderbelserion.fusion.core.api.registry.message.MessageRegistry;

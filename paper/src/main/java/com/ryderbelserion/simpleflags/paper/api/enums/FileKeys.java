@@ -1,15 +1,14 @@
 package com.ryderbelserion.simpleflags.paper.api.enums;
 
-import com.ryderbelserion.fusion.core.api.FusionProvider;
-import com.ryderbelserion.fusion.core.api.enums.Level;
-import com.ryderbelserion.fusion.core.api.exceptions.FusionException;
-import com.ryderbelserion.fusion.files.FileManager;
-import com.ryderbelserion.fusion.files.enums.FileAction;
-import com.ryderbelserion.fusion.files.enums.FileType;
-import com.ryderbelserion.fusion.files.interfaces.ICustomFile;
-import com.ryderbelserion.fusion.files.types.LogCustomFile;
-import com.ryderbelserion.fusion.files.types.configurate.JsonCustomFile;
-import com.ryderbelserion.fusion.files.types.configurate.YamlCustomFile;
+import com.ryderbelserion.fusion.api.FusionProvider;
+import com.ryderbelserion.fusion.api.enums.Level;
+import com.ryderbelserion.fusion.api.enums.files.enums.FileAction;
+import com.ryderbelserion.fusion.api.enums.files.enums.FileType;
+import com.ryderbelserion.fusion.api.exceptions.FusionException;
+import com.ryderbelserion.fusion.core.files.FileManager;
+import com.ryderbelserion.fusion.core.files.interfaces.ICustomFile;
+import com.ryderbelserion.fusion.core.files.types.configurate.JsonCustomFile;
+import com.ryderbelserion.fusion.core.files.types.configurate.YamlCustomFile;
 import com.ryderbelserion.fusion.kyori.FusionKyori;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
@@ -28,7 +27,7 @@ public enum FileKeys {
             FileAction.EXTRACT_FILE
     ));
 
-    private final FusionKyori fusion = (FusionKyori) FusionProvider.getInstance();
+    private final FusionKyori fusion = (FusionKyori) FusionProvider.api();
 
     private final Path dataPath = this.fusion.getDataPath();
 
@@ -56,16 +55,6 @@ public enum FileKeys {
 
     public final YamlCustomFile getYamlCustomFile() {
         final Optional<YamlCustomFile> customFile = this.fileManager.getYamlFile(this.path);
-
-        if (customFile.isEmpty()) {
-            throw new FusionException("Could not find custom file for " + this.path);
-        }
-
-        return customFile.get();
-    }
-
-    public final LogCustomFile getLogCustomFile() {
-        final Optional<LogCustomFile> customFile = this.fileManager.getLogFile(this.path);
 
         if (customFile.isEmpty()) {
             throw new FusionException("Could not find custom file for " + this.path);
@@ -107,7 +96,7 @@ public enum FileKeys {
             try {
                 java.nio.file.Files.deleteIfExists(this.path);
             } catch (final IOException exception) {
-                this.fusion.log(Level.ERROR, "Failed to delete: %s", exception, this.path);
+                this.fusion.log(Level.error, "Failed to delete: %s", exception, this.path);
             }
         }
 
@@ -119,7 +108,7 @@ public enum FileKeys {
             try {
                 java.nio.file.Files.deleteIfExists(this.path);
             } catch (final IOException exception) {
-                this.fusion.log(Level.ERROR, "Failed to delete: %s", exception, this.path);
+                this.fusion.log(Level.error, "Failed to delete: %s", exception, this.path);
             }
         }
 

@@ -1,6 +1,6 @@
 package com.ryderbelserion.simpleflags.paper.api.registry.adapters;
 
-import com.ryderbelserion.fusion.core.api.FusionKey;
+import com.ryderbelserion.fusion.api.objects.FusionKey;
 import com.ryderbelserion.fusion.core.api.config.properties.PropertyManager;
 import com.ryderbelserion.fusion.core.api.registry.message.MessageRegistry;
 import com.ryderbelserion.fusion.paper.FusionPaper;
@@ -11,7 +11,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +29,7 @@ public class PaperSenderAdapter {
 
     private final MessageRegistry messageRegistry = this.platform.getMessageRegistry();
 
-    public void sendActionBar(@NotNull final CommandSender sender, @NotNull final FusionKey id, @NotNull final Map<String, String> placeholders) {
+    public void sendActionBar(@NonNull final CommandSender sender, @NonNull final FusionKey id, @NonNull final Map<String, String> placeholders) {
         final Component component = getComponent(sender, id, placeholders);
 
         if (component.equals(Component.empty())) {
@@ -45,7 +45,7 @@ public class PaperSenderAdapter {
         sender.sendActionBar(component);
     }
 
-    public void sendMessage(@NotNull final CommandSender sender, @NotNull final FusionKey id, @NotNull final Map<String, String> placeholders) {
+    public void sendMessage(@NonNull final CommandSender sender, @NonNull final FusionKey id, @NonNull final Map<String, String> placeholders) {
         final Component component = getComponent(sender, id, placeholders);
 
         if (component.equals(Component.empty())) {
@@ -55,7 +55,7 @@ public class PaperSenderAdapter {
         sender.sendMessage(component);
     }
 
-    public Component getComponent(@NotNull final CommandSender sender, @NotNull final FusionKey id, @NotNull final Map<String, String> placeholders) {
+    public Component getComponent(@NonNull final CommandSender sender, @NonNull final FusionKey id, @NonNull final Map<String, String> placeholders) {
         final List<String> values = new ArrayList<>();
 
         this.messageRegistry.getMessage(id).ifPresent(value -> values.add(value.getValue()));
@@ -78,10 +78,10 @@ public class PaperSenderAdapter {
             map.putIfAbsent("{prefix}", prefix);
         }
 
-        return this.fusion.asComponent(sender, values.getFirst(), map);
+        return this.fusion.asComponent(sender, values.getFirst(), map, List.of());
     }
 
-    public String getMessage(@NotNull final CommandSender sender, @NotNull final FusionKey id, @NotNull final Map<String, String> placeholders) {
+    public String getMessage(@NonNull final CommandSender sender, @NonNull final FusionKey id, @NonNull final Map<String, String> placeholders) {
         final List<String> values = new ArrayList<>();
 
         this.messageRegistry.getMessage(id).ifPresent(value -> values.add(value.getValue()));

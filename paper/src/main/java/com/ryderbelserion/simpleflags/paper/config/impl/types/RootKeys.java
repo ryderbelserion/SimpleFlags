@@ -54,15 +54,18 @@ public class RootKeys implements IPropertyHolder {
     })
     public static final Property<State> message_state = newBeanProperty(State.class, State.send_message, "root", "message-state");
 
-    @Comment("This flag prevent_drowning as you guessed it, it prevents drowning if enabled.")
+    @Comment("This flag prevent-drowning as you guessed it, it prevents drowning if enabled.")
     public static final BooleanProperty is_drowning_flag_enabled = newProperty(false, "flags", "drowning-flag");
 
-    @Comment("This flag prevent_crafter_interaction prevents interacting with Crafters.")
+    @Comment("This flag prevent-flight Mr Holmes denies flight in a region if enabled.")
+    public static final BooleanProperty is_fly_flag_enabled = newProperty(false, "flags", "flight-flag");
+
+    @Comment("This flag prevent-crafter-interaction prevents interacting with Crafters.")
     public static final BooleanProperty is_crafter_interaction_enabled = newProperty(false, "flags", "crafter-flag", "interaction");
 
-    @Comment("This flag prevent_crafter_block prevents placing Crafters.")
+    @Comment("This flag prevent-crafter-block prevents placing Crafters.")
     public static final BooleanProperty is_crafter_place_enabled = newProperty(false, "flags", "crafter-flag", "place");
 
-    @Comment("This flag prevent_natural_spawning prevents natural mob spawns in regions.")
+    @Comment("This flag prevent-natural-spawning prevents natural mob spawns in regions.")
     public static final BooleanProperty is_natural_spawning_flag_enabled = newProperty(false, "flags", "natural-spawning-flag");
 }

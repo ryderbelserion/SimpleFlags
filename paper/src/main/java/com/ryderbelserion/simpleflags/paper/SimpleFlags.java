@@ -2,20 +2,22 @@ package com.ryderbelserion.simpleflags.paper;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.ryderbelserion.fusion.core.api.registry.message.MessageRegistry;
-import com.ryderbelserion.fusion.files.FileManager;
+import com.ryderbelserion.fusion.core.files.FileManager;
 import com.ryderbelserion.fusion.paper.FusionPaper;
+import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.other.FlyFlag;
 import com.ryderbelserion.simpleflags.paper.commands.BaseCommand;
 import com.ryderbelserion.simpleflags.paper.commands.types.ReloadCommand;
 import com.ryderbelserion.simpleflags.paper.config.impl.ConfigManager;
 import com.ryderbelserion.simpleflags.paper.api.registry.flags.FlagManager;
-import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.DrownFlag;
-import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.NaturalFlag;
-import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.temporary.BlockCrafterFlag;
-import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.temporary.InteractionCrafterFlag;
-import com.ryderbelserion.simpleflags.paper.listeners.BlockListener;
-import com.ryderbelserion.simpleflags.paper.listeners.DrowningListener;
-import com.ryderbelserion.simpleflags.paper.listeners.NaturalListener;
+import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.damage.DrownFlag;
+import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.entity.NaturalFlag;
+import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.blocks.BlockCrafterFlag;
+import com.ryderbelserion.simpleflags.paper.api.registry.flags.types.blocks.InteractionCrafterFlag;
+import com.ryderbelserion.simpleflags.paper.listeners.block.CrafterListener;
+import com.ryderbelserion.simpleflags.paper.listeners.damage.DrowningListener;
+import com.ryderbelserion.simpleflags.paper.listeners.entity.NaturalSpawnListener;
 import com.ryderbelserion.simpleflags.paper.api.registry.adapters.PaperSenderAdapter;
+import com.ryderbelserion.simpleflags.paper.listeners.other.FlightStatusListener;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -60,10 +62,16 @@ public class SimpleFlags extends JavaPlugin {
         this.flagManager = new FlagManager();
 
         List.of(
+                // damage flags
                 new DrownFlag(),
+
+                // entity flags
                 new NaturalFlag(),
 
-                // temporary
+                // status flags
+                new FlyFlag(),
+
+                // block flags
                 new InteractionCrafterFlag(),
                 new BlockCrafterFlag()
         ).forEach(this.flagManager::addFlag);
@@ -78,9 +86,17 @@ public class SimpleFlags extends JavaPlugin {
         final PluginManager pluginManager = getServer().getPluginManager();
 
         List.of(
-                new NaturalListener(),
+                // entity listeners
+                new NaturalSpawnListener(),
+
+                // damage listeners
                 new DrowningListener(),
-                new BlockListener()
+
+                // status listeners
+                new FlightStatusListener(),
+
+                // crafter listeners
+                new CrafterListener()
         ).forEach(event -> pluginManager.registerEvents(event, this));
 
         final LifecycleEventManager<Plugin> eventManager = getLifecycleManager();

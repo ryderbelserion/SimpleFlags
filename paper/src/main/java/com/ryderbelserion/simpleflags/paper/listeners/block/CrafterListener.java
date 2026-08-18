@@ -1,4 +1,4 @@
-package com.ryderbelserion.simpleflags.paper.listeners;
+package com.ryderbelserion.simpleflags.paper.listeners.block;
 
 import com.ryderbelserion.simpleflags.paper.SimpleFlags;
 import com.ryderbelserion.simpleflags.paper.api.registry.flags.FlagManager;
@@ -13,7 +13,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BlockListener implements Listener {
+public class CrafterListener implements Listener {
 
     private final SimpleFlags plugin = JavaPlugin.getPlugin(SimpleFlags.class);
 

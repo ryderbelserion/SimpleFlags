@@ -1,11 +1,11 @@
 package com.ryderbelserion.simpleflags.paper.config.impl;
 
-import com.ryderbelserion.fusion.core.api.FusionKey;
+import com.ryderbelserion.fusion.api.enums.Level;
+import com.ryderbelserion.fusion.api.objects.FusionKey;
 import com.ryderbelserion.fusion.core.api.config.ConfigBuilder;
 import com.ryderbelserion.fusion.core.api.config.properties.PropertyManager;
-import com.ryderbelserion.fusion.core.api.enums.Level;
 import com.ryderbelserion.fusion.core.api.registry.message.MessageRegistry;
-import com.ryderbelserion.fusion.files.FileManager;
+import com.ryderbelserion.fusion.core.files.FileManager;
 import com.ryderbelserion.fusion.paper.FusionPaper;
 import com.ryderbelserion.simpleflags.paper.SimpleFlags;
 import com.ryderbelserion.simpleflags.paper.api.enums.messages.Message;
@@ -64,7 +64,7 @@ public final class ConfigManager {
                     for (final Message message : Message.values()) {
                         message.addKey(action, configuration, key);
                     }
-                }, () -> this.fusion.log(Level.INFO, "Path %s not found in cache.".formatted(path)));
+                }, () -> this.fusion.log(Level.info, "Path %s not found in cache.".formatted(path)));
             }
         });
     }

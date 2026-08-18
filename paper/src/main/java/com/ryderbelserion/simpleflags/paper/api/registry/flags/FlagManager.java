@@ -3,6 +3,7 @@ package com.ryderbelserion.simpleflags.paper.api.registry.flags;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class FlagManager {
 
@@ -19,6 +20,10 @@ public class FlagManager {
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean hasFlag(String name) {
         return this.flags.containsKey(name);
+    }
+
+    public Optional<FlagBuilder<?>> getByFlag(String name) {
+        return Optional.ofNullable(this.flags.get(name));
     }
 
     public FlagBuilder<?> getFlag(String name) {

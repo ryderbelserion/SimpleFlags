@@ -3,6 +3,7 @@ package com.ryderbelserion.simpleflags.paper.api.registry.flags.enums;
 public enum CustomFlags {
 
     NATURAL_FLAG("prevent_natural_spawning"),
+    FLIGHT_FLAG("prevent_flight"),
     CRAFTER_INTERACTION_FLAG("prevent_crafter_interaction"),
     CRAFTER_BLOCK_FLAG("prevent_crafter_block"),
     DROWN_FLAG("prevent_drowning"),

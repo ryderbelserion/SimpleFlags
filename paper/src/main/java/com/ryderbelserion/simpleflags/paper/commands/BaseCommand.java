@@ -8,23 +8,23 @@ import com.ryderbelserion.simpleflags.paper.api.enums.messages.Message;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import java.util.List;
 
 public class BaseCommand extends SimpleFlagsCommand {
 
     @Override
-    public void run(@NotNull final PaperCommandContext context) {
+    public void run(@NonNull final PaperCommandContext context) {
         Message.help_menu.sendMessage(context.getSender());
     }
 
     @Override
-    public @NotNull final LiteralCommandNode<CommandSourceStack> literal() {
+    public @NonNull final LiteralCommandNode<CommandSourceStack> literal() {
         return Commands.literal("simpleflags").requires(this::requirement).build();
     }
 
     @Override
-    public @NotNull final List<PermissionContext> getPermissions() {
+    public @NonNull final List<PermissionContext> getPermissions() {
         return List.of(
                 new PermissionContext(
                         "simpleflags.help",
@@ -34,7 +34,7 @@ public class BaseCommand extends SimpleFlagsCommand {
     }
 
     @Override
-    public final boolean requirement(@NotNull final CommandSourceStack context) {
+    public final boolean requirement(@NonNull final CommandSourceStack context) {
         boolean hasPermission = false;
 
         final CommandSender sender = context.getSender();

@@ -1,4 +1,4 @@
-package com.ryderbelserion.simpleflags.paper.api.registry.flags.types;
+package com.ryderbelserion.simpleflags.paper.api.registry.flags.types.entity;
 
 import com.ryderbelserion.simpleflags.paper.config.impl.types.RootKeys;
 import com.ryderbelserion.simpleflags.paper.api.registry.flags.builders.StateFlagBuilder;
@@ -7,7 +7,7 @@ import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
 
-public class DrownFlag extends StateFlagBuilder {
+public class NaturalFlag extends StateFlagBuilder {
 
     private StateFlag flag;
 
@@ -16,9 +16,9 @@ public class DrownFlag extends StateFlagBuilder {
         if (!isEnabled()) return;
 
         try {
-            getRegistry().register(this.flag = new StateFlag("prevent-drowning", true));
+            getRegistry().register(this.flag = new StateFlag("prevent-natural-spawning", true));
         } catch (FlagConflictException exception) {
-            Flag<?> existingFlag = getRegistry().get("prevent-drowning");
+            Flag<?> existingFlag = getRegistry().get("prevent-natural-spawning");
 
             if (existingFlag instanceof StateFlag stateFlag) {
                 this.flag = stateFlag;
@@ -32,7 +32,7 @@ public class DrownFlag extends StateFlagBuilder {
 
     @Override
     public String getName() {
-        return CustomFlags.DROWN_FLAG.getName();
+        return CustomFlags.NATURAL_FLAG.getName();
     }
 
     @Override
@@ -42,6 +42,6 @@ public class DrownFlag extends StateFlagBuilder {
 
     @Override
     public boolean isEnabled() {
-        return this.config.getProperty(RootKeys.is_drowning_flag_enabled);
+        return this.config.getProperty(RootKeys.is_natural_spawning_flag_enabled);
     }
 }
